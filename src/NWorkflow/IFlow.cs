@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace NWorkflow
 {
-    public interface IJob
+    interface IFlow
     {
-        JobResult Execute(); 
     }
 }

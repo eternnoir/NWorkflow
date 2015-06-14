@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NWorkflow
+namespace NWorkflow.Loging
 {
-    public interface IJob
+    public class Logger
     {
-        JobResult Execute(); 
     }
 }
