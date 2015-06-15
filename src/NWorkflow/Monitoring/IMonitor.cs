@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NWorkflow.Loging
+namespace NWorkflow.Monitoring
 {
-    public class Logger
+    interface IMonitor
     {
     }
 }

@@ -1,0 +1,3 @@
+[submodule "libs/NLogging"]
+	path = libs/NLogging
+	url = git@github.com:eternnoir/NLogging.git
