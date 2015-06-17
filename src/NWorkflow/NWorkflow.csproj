@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Flow.cs" />
     <Compile Include="IFlow.cs" />
     <Compile Include="IJob.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="JobResult.cs" />
     <Compile Include="Monitoring\Monitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

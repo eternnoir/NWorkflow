@@ -8,6 +8,11 @@ namespace NWorkflow
 {
     public interface IJob
     {
+        IFlow Flow
+        {
+            get;
+            set;
+        }
         JobResult Execute(); 
     }
 }

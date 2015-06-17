@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NWorkflow
 {
-    interface IFlow
+    public interface IFlow
     {
     }
 }
