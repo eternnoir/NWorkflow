@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLogging">
+      <HintPath>..\packages\NLogging.0.1.1\lib\net40\NLogging.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,12 +45,12 @@
     <Compile Include="IFlow.cs" />
     <Compile Include="IJob.cs" />
     <Compile Include="JobResult.cs" />
-    <Compile Include="Loging\ILogger.cs" />
-    <Compile Include="Loging\Logger.cs" />
     <Compile Include="Monitoring\Monitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
