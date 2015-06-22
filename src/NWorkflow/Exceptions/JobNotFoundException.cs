@@ -8,22 +8,12 @@ namespace NWorkflow.Exceptions
 {
     public class JobNotFoundException : NWorkflowException
     {
-        private IJob job;
         private IFlow flow;
 
-        public JobNotFoundException(IFlow flow, IJob job, string message)
+        public JobNotFoundException(IFlow flow, string message)
             : base(message)
         {
-            job = Job;
             flow = Flow;
-        }
-
-        public IJob Job
-        {
-            get
-            {
-                return job;
-            }
         }
 
         public IFlow Flow

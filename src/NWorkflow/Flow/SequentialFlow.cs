@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NWorkflow.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,14 @@ namespace NWorkflow
 
         public void AddJob(IJob Job)
         {
+            if (jobNameDic.ContainsKey(Job.JobName))
+            {
+                throw new JobNameExistException(this, Job, "Job " + Job.JobName + " Exist.");
+            }
             this.jobList.Add(Job);
             this.jobResultDic.Add(Job, JobResult.NOTRUN);
-            
+            this.jobNameDic.Add(Job.JobName, Job);
+
         }
 
         public override void RunAllJob()
@@ -40,7 +46,13 @@ namespace NWorkflow
 
         public override JobResult RunJob(string JobName)
         {
-
+            if (!jobNameDic.ContainsKey(JobName))
+            {
+                throw new JobNotFoundException(this, "Job " + JobName + " Not Found.");
+            }
+            var job = jobNameDic[JobName];
+            job.Init();
+            return job.Execute();
         }
 
         private bool ExecuteJob(IJob Job)

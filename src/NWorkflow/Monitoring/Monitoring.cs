@@ -10,9 +10,8 @@ namespace NWorkflow.Monitoring
     {
         public static IMonitor GetMonitor(string MonitorName)
         {
-
-            throw new NotImplementedException();
-            return null;
+            //TODO Monitor not done.
+            return new Monitor();
         }
 
     }
