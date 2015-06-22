@@ -69,5 +69,11 @@ namespace NWorkflow
         {
             get { return flowName; }
         }
+
+
+        abstract public JobResult GetJobResult(string JobName);
+
+        abstract public JobResult GetJobResult(IJob JobObj);
     }
+
 }

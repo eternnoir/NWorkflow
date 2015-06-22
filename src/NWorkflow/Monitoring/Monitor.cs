@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NWorkflow.Monitoring
 {
-    public class Monitor:IMonitor
+    public class Monitor : IMonitor
     {
     }
 }

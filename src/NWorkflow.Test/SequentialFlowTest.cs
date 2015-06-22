@@ -28,5 +28,25 @@ namespace NWorkflow.Test
                 Assert.True(true);
             }
         }
+
+        [Test]
+        public void TestExecJobs()
+        {
+            var flow = new SequentialFlow("flow1");
+            var job1 = new FakeJob("Job1");
+            var job2 = new FakeJob("Job2");
+            try
+            {
+                flow.AddJob(job1);
+                flow.AddJob(job2);
+                flow.RunAllJob();
+                Assert.True(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false);
+            }
+        }
+
     }
 }

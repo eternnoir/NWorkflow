@@ -8,14 +8,21 @@ namespace NWorkflow.Test
 {
     public class FakeJob:Job
     {
-        public FakeJob(string jobName) : base(jobName) { }
+        private JobResult result;
+
+        public FakeJob(string jobName, JobResult fakeResult = JobResult.SUCCESS)
+            : base(jobName)
+        {
+
+            result = fakeResult;
+        }
         public override void Init()
         {
         }
 
         public override JobResult Execute()
         {
-            return JobResult.SUCCESS;
+            return result;
         }
     }
 }

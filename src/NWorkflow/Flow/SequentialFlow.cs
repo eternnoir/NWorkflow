@@ -37,10 +37,7 @@ namespace NWorkflow
         {
             foreach (var job in jobList)
             {
-                if (!ExecuteJob(job))
-                {
-                    break;
-                }
+                ExecuteJob(job);
             }
         }
 
@@ -68,6 +65,24 @@ namespace NWorkflow
             {
                 return false;
             }
+        }
+
+        public override JobResult GetJobResult(string JobName)
+        {
+            if (!jobNameDic.ContainsKey(JobName))
+            {
+                throw new JobNotFoundException(this, "Job " + JobName + " Not Found.");
+            }
+            return GetJobResult(jobNameDic[JobName]);
+        }
+
+        public override JobResult GetJobResult(IJob JobObj)
+        {
+            if (!jobResultDic.ContainsKey(JobObj))
+            {
+                throw new JobNotFoundException(this, "Job " + JobObj.JobName + " Not Found.");
+            }
+            return jobResultDic[JobObj];
         }
     }
 }
