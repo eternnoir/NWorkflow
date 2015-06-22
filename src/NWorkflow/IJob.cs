@@ -13,6 +13,7 @@ namespace NWorkflow
             get;
             set;
         }
-        JobResult Execute(); 
+        void Init();
+        JobResult Execute();
     }
 }

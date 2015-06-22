@@ -6,7 +6,32 @@ using System.Threading.Tasks;
 
 namespace NWorkflow
 {
-    public class Job
+    abstract public class Job :IJob
     {
+        private IFlow flow;
+
+        public IFlow Flow
+        {
+            get
+            {
+                return flow;
+            }
+            set
+            {
+                flow = value;
+            }
+        }
+
+        abstract public void Init();
+
+        abstract public JobResult Execute();
+
+        protected Dictionary<string, object> WorkingMemeory
+        {
+            get
+            {
+                return flow.WorkingMemory;
+            }
+        }
     }
 }
