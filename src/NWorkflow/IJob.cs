@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLogging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,16 @@ namespace NWorkflow
         {
             get;
             set;
+        }
+
+        string JobName
+        {
+            get;
+        }
+
+        ILogger Logger
+        {
+            get;
         }
         void Init();
         JobResult Execute();

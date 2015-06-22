@@ -8,6 +8,6 @@ namespace NWorkflow
 {
     public enum JobResult
     {
-        SUCCESS,FAIL
+        SUCCESS,FAIL,NOTRUN
     }
 }

@@ -9,7 +9,12 @@ namespace NWorkflow
     abstract public class Job :IJob
     {
         private IFlow flow;
+        private string jobName;
 
+        public Job(string JobName)
+        {
+            jobName = JobName;
+        }
         public IFlow Flow
         {
             get
@@ -32,6 +37,16 @@ namespace NWorkflow
             {
                 return flow.WorkingMemory;
             }
+        }
+
+        public string JobName
+        {
+            get { return jobName; }
+        }
+
+        public NLogging.ILogger Logger
+        {
+            get { return NLogging.Logging.GetLogger(this.JobName); }
         }
     }
 }

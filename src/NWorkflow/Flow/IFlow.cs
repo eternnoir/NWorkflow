@@ -28,12 +28,18 @@ namespace NWorkflow
             set;
             get;
         }
+
+        string Name
+        {
+            get;
+        }
+
         Dictionary<string,object> WorkingMemory
         {
             get;
         }
 
         void RunAllJob();
-        JobResult RunJon(string JobName);
+        JobResult RunJob(string JobName);
     }
 }

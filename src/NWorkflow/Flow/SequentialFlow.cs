@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NWorkflow
+{
+    public class SequentialFlow : Flow
+    {
+        private List<IJob> jobList;
+        private Dictionary<IJob, JobResult> jobResultDic;
+        private Dictionary<string, IJob> jobNameDic;
+
+        public SequentialFlow(string FlowName)
+            : base(FlowName)
+        {
+            jobList = new List<IJob>();
+            jobResultDic = new Dictionary<IJob, JobResult>();
+            jobNameDic = new Dictionary<string, IJob>();
+        }
+
+        public void AddJob(IJob Job)
+        {
+            this.jobList.Add(Job);
+            this.jobResultDic.Add(Job, JobResult.NOTRUN);
+            
+        }
+
+        public override void RunAllJob()
+        {
+            foreach (var job in jobList)
+            {
+                if (!ExecuteJob(job))
+                {
+                    break;
+                }
+            }
+        }
+
+        public override JobResult RunJob(string JobName)
+        {
+
+        }
+
+        private bool ExecuteJob(IJob Job)
+        {
+            Job.Init();
+            var result = Job.Execute();
+            jobResultDic[Job] = result;
+            if (result == JobResult.SUCCESS)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
