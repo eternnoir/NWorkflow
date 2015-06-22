@@ -48,5 +48,48 @@ namespace NWorkflow.Test
             }
         }
 
+        [Test]
+        public void TestExecJobsResult()
+        {
+            var flow = new SequentialFlow("flow1");
+            var job1 = new FakeJob("Job1");
+            var job2 = new FakeJob("Job2",JobResult.FAIL);
+            try
+            {
+                flow.AddJob(job1);
+                flow.AddJob(job2);
+                flow.RunAllJob();
+                Assert.True(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false);
+            }
+
+            Assert.AreEqual(flow.GetJobResult(job2), JobResult.FAIL);
+            Assert.AreEqual(flow.GetJobResult(job1), JobResult.SUCCESS);
+        }
+
+        [Test]
+        public void TestExecJobsResultByName()
+        {
+            var flow = new SequentialFlow("flow1");
+            var job1 = new FakeJob("Job1");
+            var job2 = new FakeJob("Job2",JobResult.FAIL);
+            try
+            {
+                flow.AddJob(job1);
+                flow.AddJob(job2);
+                flow.RunAllJob();
+                Assert.True(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false);
+            }
+
+            Assert.AreEqual(flow.GetJobResult("Job2"), JobResult.FAIL);
+            Assert.AreEqual(flow.GetJobResult("Job1"), JobResult.SUCCESS);
+        }
     }
 }
