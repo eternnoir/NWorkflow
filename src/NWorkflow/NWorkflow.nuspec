@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
-    <metadata minClientVersion="4.0">
+    <metadata>
         <id>NWorkflow</id>
         <version>0.1.0</version>
         <title>NWorkflow</title>

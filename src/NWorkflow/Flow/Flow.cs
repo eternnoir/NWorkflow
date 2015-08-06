@@ -1,5 +1,6 @@
 ﻿using NLogging;
 using NWorkflow.Monitoring;
+using NWorkflow.Recovery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,17 @@ namespace NWorkflow
         private ILogger logger;
         private IMonitor monitor;
         private Dictionary<string, object> workingMemory;
+        private IRecover recover;
+        private RecoveryMode recoveryMode;
 
-        public Flow(string FlowName)
+        public Flow(string FlowName, RecoveryMode recoveryMode = RecoveryMode.STACK)
         {
             flowName = FlowName;
             workingMemory = new Dictionary<string, object>();
             monitor = Monitoring.Monitoring.GetMonitor(this.Name);
             logger = Logging.GetLogger(this.Name);
-            this.RecoveryMode = RecoveryMode.STACK;
+            this.recoveryMode = recoveryMode;
+            recover = RecoverFactory.GetRecovery(this.RecoveryMode, this);
         }
 
         public Dictionary<string, object> WorkingMemory
@@ -33,8 +37,10 @@ namespace NWorkflow
         }
         public RecoveryMode RecoveryMode
         {
-            get;
-            set;
+            get
+            {
+                return this.recoveryMode;
+            }
         }
 
         public ILogger Logger
@@ -69,7 +75,6 @@ namespace NWorkflow
         {
             get { return flowName; }
         }
-
 
         abstract public JobResult GetJobResult(string JobName);
 

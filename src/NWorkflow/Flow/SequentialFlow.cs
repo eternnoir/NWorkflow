@@ -48,16 +48,16 @@ namespace NWorkflow
                 throw new JobNotFoundException(this, "Job " + JobName + " Not Found.");
             }
             var job = jobNameDic[JobName];
-            job.Init();
-            return job.Execute();
+            return this.ExecuteJob(job); 
         }
 
-        private bool ExecuteJob(IJob Job)
+        private JobResult ExecuteJob(IJob Job)
         {
             Job.Init();
             var result = Job.Execute();
+            
             jobResultDic[Job] = result;
-            return result == JobResult.SUCCESS;
+            return JobResult.SUCCESS;
         }
 
         public override JobResult GetJobResult(string JobName)

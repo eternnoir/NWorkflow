@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NLogging;
 using NWorkflow.Monitoring;
+using NWorkflow.Recovery;
 
 
 namespace NWorkflow

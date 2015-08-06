@@ -26,5 +26,6 @@ namespace NWorkflow
         }
         void Init();
         JobResult Execute();
+        void DoRecover();
     }
 }
