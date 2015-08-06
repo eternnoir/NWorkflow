@@ -154,6 +154,7 @@ namespace NWorkflow.Test
             }
 
             Assert.AreEqual(flow.GetJobResult("Job1"), JobResult.SUCCESS);
+            Assert.AreEqual(flow.GetJobResult("Job3"), JobResult.NOTRUN);
             Assert.AreEqual(job3.Message, "Run.");
             Assert.AreEqual(job2.Message, "Run.");
             Assert.AreEqual(job1.Message, "Run.");
