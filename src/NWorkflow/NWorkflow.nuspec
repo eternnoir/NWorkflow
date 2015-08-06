@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata minClientVersion="4.0">
+        <id>NWorkflow</id>
+        <version>0.1.0</version>
+        <title>NWorkflow</title>
+        <authors>Frank Wang</authors>
+        <owners>Frank Wang</owners>
+        <licenseUrl>https://raw.githubusercontent.com/eternnoir/NWorkflow/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/eternnoir/NWorkflow</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>C# .Net Wrokflow framework</description>
+        <summary>C# .Net Wrokflow framework</summary>
+        <copyright>Copyright ©  2015</copyright>
+        <tags>Tool Framework Wrokflow</tags>
+        <dependencies>
+            <dependency id="NLogging" version="0.1.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="lib\net40\NWorkflow.dll" target="lib\net40\NWorkflow.dll" />
+    </files>
+</package>
