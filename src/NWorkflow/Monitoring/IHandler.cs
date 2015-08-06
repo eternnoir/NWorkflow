@@ -7,5 +7,7 @@ namespace NWorkflow.Monitoring
 {
     interface IHandler
     {
+        void Push(Infomation info);
+        void Flush();
     }
 }

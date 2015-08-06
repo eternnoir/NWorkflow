@@ -7,9 +7,29 @@ namespace NWorkflow.Monitoring
 {
     public class Infomation
     {
-        private IFlow flow;
-        private IJob job;
         private MonitorLevel level;
         private string message;
+
+        public Infomation(MonitorLevel level, string message)
+        {
+            this.level = level;
+            this.message = message;
+        }
+
+        public MonitorLevel Level
+        {
+            get
+            {
+                return this.level;
+            }
+        }
+
+        public string Message
+        {
+            get
+            {
+                return this.message;
+            }
+        }
     }
 }

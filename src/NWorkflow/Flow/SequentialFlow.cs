@@ -57,14 +57,7 @@ namespace NWorkflow
             Job.Init();
             var result = Job.Execute();
             jobResultDic[Job] = result;
-            if (result == JobResult.SUCCESS)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result == JobResult.SUCCESS;
         }
 
         public override JobResult GetJobResult(string JobName)

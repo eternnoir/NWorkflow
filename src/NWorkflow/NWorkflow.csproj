@@ -50,9 +50,9 @@
     <Compile Include="Exceptions\JobNotFoundException.cs" />
     <Compile Include="Flow\Flow.cs" />
     <Compile Include="Flow\IFlow.cs" />
-    <Compile Include="IJob.cs" />
-    <Compile Include="Job.cs" />
-    <Compile Include="JobResult.cs" />
+    <Compile Include="Job\IJob.cs" />
+    <Compile Include="Job\Job.cs" />
+    <Compile Include="Job\JobResult.cs" />
     <Compile Include="Monitoring\IHandler.cs" />
     <Compile Include="Monitoring\IMonitor.cs" />
     <Compile Include="Monitoring\Infomation.cs" />
