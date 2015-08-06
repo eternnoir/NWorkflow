@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NWorkflow.Monitoring
 {
-    interface IHandler
+    public interface IHandler
     {
         void Push(Infomation info);
         void Flush();
