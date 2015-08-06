@@ -33,7 +33,5 @@ namespace NWorkflow.Exceptions
                 return flow;
             }
         }
-
-
     }
 }

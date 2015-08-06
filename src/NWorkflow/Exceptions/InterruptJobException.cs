@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NWorkflow.Exceptions
 {
-    class InterruptJobException : JobException
+    public class InterruptJobException : JobException
     {
         public InterruptJobException(string message, IJob job) :
             base(message, job)

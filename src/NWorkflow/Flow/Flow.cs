@@ -15,8 +15,10 @@ namespace NWorkflow
         private ILogger logger;
         private IMonitor monitor;
         private Dictionary<string, object> workingMemory;
-        private IRecover recover;
+        protected IRecover recover;
         private RecoveryMode recoveryMode;
+        protected Dictionary<IJob, JobResult> jobResultDic;
+        protected Dictionary<string, IJob> jobNameDic;
 
         public Flow(string FlowName, RecoveryMode recoveryMode = RecoveryMode.STACK)
         {
@@ -65,6 +67,15 @@ namespace NWorkflow
             {
                 this.monitor = value;
             }
+        }
+
+      protected JobResult ExecuteJob(IJob Job)
+        {
+            this.recover.AppendRunedJob(Job);
+            Job.Init();
+            var result = Job.Execute();
+            jobResultDic[Job] = result;
+            return result;
         }
 
         abstract public void RunAllJob();

@@ -50,8 +50,6 @@ namespace NWorkflow
         }
 
 
-        public void DoRecover()
-        {
-        }
+        abstract public void DoRecover();
     }
 }

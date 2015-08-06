@@ -10,8 +10,6 @@ namespace NWorkflow
     public class SequentialFlow : Flow
     {
         private List<IJob> jobList;
-        private Dictionary<IJob, JobResult> jobResultDic;
-        private Dictionary<string, IJob> jobNameDic;
 
         public SequentialFlow(string FlowName)
             : base(FlowName)
@@ -39,21 +37,20 @@ namespace NWorkflow
             {
                     try
                     {
-                        job.DoRecover();
+                        ProcessJob(job);
                     }
                     catch (ResumeJobException rje)
                     {
-                        //TODO Write some log, monitor
                         continue;
                     }
                     catch (InterruptJobException ije)
                     {
-                        //TODO Write some log, monitor
+                        this.recover.DoRecover();
                         break;
                     }
                     catch (Exception ex)
                     {
-                        //TODO Write some log, monitor
+                        this.recover.DoRecover();
                         break;
                     }
                 }
@@ -62,8 +59,9 @@ namespace NWorkflow
 
         private void ProcessJob(IJob job)
         {
-            if (job.Execute() != JobResult.SUCCESS)
+            if (this.ExecuteJob(job) != JobResult.SUCCESS)
             {
+                jobResultDic[job] = JobResult.FAIL;
                 throw new InterruptJobException("",job);
             }
         }
@@ -78,13 +76,6 @@ namespace NWorkflow
             return this.ExecuteJob(job); 
         }
 
-        private JobResult ExecuteJob(IJob Job)
-        {
-            Job.Init();
-            var result = Job.Execute();
-            jobResultDic[Job] = result;
-            return JobResult.SUCCESS;
-        }
 
         public override JobResult GetJobResult(string JobName)
         {
