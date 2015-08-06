@@ -45,11 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\InterruptJobException.cs" />
+    <Compile Include="Exceptions\JobException.cs" />
     <Compile Include="Exceptions\JobNameExistException.cs" />
     <Compile Include="Exceptions\NWorkflowException.cs" />
     <Compile Include="Exceptions\JobNotFoundException.cs" />
+    <Compile Include="Exceptions\RecoverModeException.cs" />
+    <Compile Include="Exceptions\ResumeJobException.cs" />
     <Compile Include="Flow\Flow.cs" />
     <Compile Include="Flow\IFlow.cs" />
+    <Compile Include="Recovery\IRecover.cs" />
     <Compile Include="Job\IJob.cs" />
     <Compile Include="Job\Job.cs" />
     <Compile Include="Job\JobResult.cs" />
@@ -60,9 +65,10 @@
     <Compile Include="Monitoring\Monitoring.cs" />
     <Compile Include="Monitoring\MonitorLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recover.cs" />
-    <Compile Include="RecoveryMode.cs" />
+    <Compile Include="Recovery\RecoverFactory.cs" />
+    <Compile Include="Recovery\RecoveryMode.cs" />
     <Compile Include="Flow\SequentialFlow.cs" />
+    <Compile Include="Recovery\StackRecover.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

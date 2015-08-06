@@ -14,7 +14,6 @@ namespace NWorkflow
     {
         RecoveryMode RecoveryMode
         {
-            set;
             get;
         }
 

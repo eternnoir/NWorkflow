@@ -37,7 +37,34 @@ namespace NWorkflow
         {
             foreach (var job in jobList)
             {
-                ExecuteJob(job);
+                    try
+                    {
+                        job.DoRecover();
+                    }
+                    catch (ResumeJobException rje)
+                    {
+                        //TODO Write some log, monitor
+                        continue;
+                    }
+                    catch (InterruptJobException ije)
+                    {
+                        //TODO Write some log, monitor
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        //TODO Write some log, monitor
+                        break;
+                    }
+                }
+
+        }
+
+        private void ProcessJob(IJob job)
+        {
+            if (job.Execute() != JobResult.SUCCESS)
+            {
+                throw new InterruptJobException("",job);
             }
         }
 
@@ -55,7 +82,6 @@ namespace NWorkflow
         {
             Job.Init();
             var result = Job.Execute();
-            
             jobResultDic[Job] = result;
             return JobResult.SUCCESS;
         }

@@ -48,5 +48,10 @@ namespace NWorkflow
         {
             get { return NLogging.Logging.GetLogger(this.JobName); }
         }
+
+
+        public void DoRecover()
+        {
+        }
     }
 }

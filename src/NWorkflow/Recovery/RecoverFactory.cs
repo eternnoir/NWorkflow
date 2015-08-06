@@ -21,6 +21,7 @@ namespace NWorkflow.Recovery
                 case RecoveryMode.STACK:
                     ret = new StackRecover(flow);
                     break;
+
                 default:
                     throw new RecoverModeException("Not support recovery mode.");
                     
