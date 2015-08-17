@@ -18,6 +18,7 @@ namespace NWorkflow
         string JobName
         {
             get;
+            set;
         }
 
         ILogger Logger

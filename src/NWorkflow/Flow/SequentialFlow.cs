@@ -1,4 +1,5 @@
 ﻿using NWorkflow.Exceptions;
+using NWorkflow.Recovery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace NWorkflow
     {
         private List<IJob> jobList;
 
-        public SequentialFlow(string FlowName)
-            : base(FlowName)
+        public SequentialFlow(string FlowName, RecoveryMode recoveryMode = RecoveryMode.STACK)
+            : base(FlowName,recoveryMode)
         {
             jobList = new List<IJob>();
             jobResultDic = new Dictionary<IJob, JobResult>();
@@ -26,6 +27,7 @@ namespace NWorkflow
                 throw new JobNameExistException(this, Job, "Job " + Job.JobName + " Exist.");
             }
             this.jobList.Add(Job);
+            Job.Flow = this;
             this.jobResultDic.Add(Job, JobResult.NOTRUN);
             this.jobNameDic.Add(Job.JobName, Job);
 
@@ -36,28 +38,28 @@ namespace NWorkflow
             JobResult resutlt = JobResult.NOTRUN;
             foreach (var job in jobList)
             {
-                    try
-                    {
-                        ProcessJob(job);
-                    }
-                    catch (ResumeJobException rje)
-                    {
-                        resutlt = JobResult.FAIL;
-                        continue;
-                    }
-                    catch (InterruptJobException ije)
-                    {
-                        this.DoRecover();
-                        resutlt = JobResult.FAIL;
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        this.DoRecover();
-                        resutlt = JobResult.FAIL;
-                        break;
-                    }
+                try
+                {
+                    ProcessJob(job);
                 }
+                catch (ResumeJobException rje)
+                {
+                    resutlt = JobResult.FAIL;
+                    continue;
+                }
+                catch (InterruptJobException ije)
+                {
+                    this.DoRecover();
+                    resutlt = JobResult.FAIL;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    this.DoRecover();
+                    resutlt = JobResult.FAIL;
+                    break;
+                }
+            }
             return resutlt;
         }
 

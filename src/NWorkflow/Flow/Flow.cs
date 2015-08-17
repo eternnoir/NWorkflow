@@ -17,7 +17,7 @@ namespace NWorkflow
         private Dictionary<string, object> workingMemory;
         protected IRecover recover;
         private RecoveryMode recoveryMode;
-        private IFlow parentFlow;
+        private IFlow parentFlow=null;
         protected Dictionary<IJob, JobResult> jobResultDic;
         protected Dictionary<string, IJob> jobNameDic;
 
@@ -50,7 +50,14 @@ namespace NWorkflow
         {
             get
             {
-                return logger;
+                if (this.parentFlow != null)
+                {
+                    return this.parentFlow.Logger;
+                }
+                else
+                {
+                    return this.logger;
+                }
             }
             set
             {
@@ -118,6 +125,7 @@ namespace NWorkflow
         public string JobName
         {
             get { return this.flowName; }
+            set { this.flowName = value; }
         }
     }
 

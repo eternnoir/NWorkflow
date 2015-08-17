@@ -42,11 +42,12 @@ namespace NWorkflow
         public string JobName
         {
             get { return jobName; }
+            set { this.jobName = value; }
         }
 
         public NLogging.ILogger Logger
         {
-            get { return NLogging.Logging.GetLogger(this.JobName); }
+            get { return this.flow.Logger; }
         }
 
 
