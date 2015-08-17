@@ -31,8 +31,9 @@ namespace NWorkflow
 
         }
 
-        public override void RunAllJob()
+        public override JobResult RunAllJob()
         {
+            JobResult resutlt = JobResult.NOTRUN;
             foreach (var job in jobList)
             {
                     try
@@ -41,20 +42,23 @@ namespace NWorkflow
                     }
                     catch (ResumeJobException rje)
                     {
+                        resutlt = JobResult.FAIL;
                         continue;
                     }
                     catch (InterruptJobException ije)
                     {
-                        this.recover.DoRecover();
+                        this.DoRecover();
+                        resutlt = JobResult.FAIL;
                         break;
                     }
                     catch (Exception ex)
                     {
-                        this.recover.DoRecover();
+                        this.DoRecover();
+                        resutlt = JobResult.FAIL;
                         break;
                     }
                 }
-
+            return resutlt;
         }
 
         private void ProcessJob(IJob job)
@@ -93,6 +97,10 @@ namespace NWorkflow
                 throw new JobNotFoundException(this, "Job " + JobObj.JobName + " Not Found.");
             }
             return jobResultDic[JobObj];
+        }
+
+        public override void Init()
+        {
         }
     }
 }

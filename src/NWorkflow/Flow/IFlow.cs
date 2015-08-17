@@ -42,7 +42,7 @@ namespace NWorkflow
         JobResult GetJobResult(string JobName);
         JobResult GetJobResult(IJob JobObj);
 
-        void RunAllJob();
+        JobResult RunAllJob();
         JobResult RunJob(string JobName);
     }
 }

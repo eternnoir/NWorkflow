@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NWorkflow
 {
-    public abstract class Flow : IFlow
+    public abstract class Flow : IFlow, IJob
     {
         private string flowName;
         private ILogger logger;
@@ -17,6 +17,7 @@ namespace NWorkflow
         private Dictionary<string, object> workingMemory;
         protected IRecover recover;
         private RecoveryMode recoveryMode;
+        private IFlow parentFlow;
         protected Dictionary<IJob, JobResult> jobResultDic;
         protected Dictionary<string, IJob> jobNameDic;
 
@@ -68,8 +69,19 @@ namespace NWorkflow
                 this.monitor = value;
             }
         }
+        abstract public void Init();
 
-      protected JobResult ExecuteJob(IJob Job)
+        public JobResult Execute()
+        {
+            return this.RunAllJob();
+        }
+
+        public void DoRecover()
+        {
+            this.recover.DoRecover();
+        }
+
+        protected JobResult ExecuteJob(IJob Job)
         {
             this.recover.AppendRunedJob(Job);
             Job.Init();
@@ -78,7 +90,7 @@ namespace NWorkflow
             return result;
         }
 
-        abstract public void RunAllJob();
+        abstract public JobResult RunAllJob();
 
         abstract public JobResult RunJob(string JobName);
 
@@ -90,6 +102,23 @@ namespace NWorkflow
         abstract public JobResult GetJobResult(string JobName);
 
         abstract public JobResult GetJobResult(IJob JobObj);
+
+        IFlow IJob.Flow
+        {
+            get
+            {
+                return this.parentFlow;
+            }
+            set
+            {
+                this.parentFlow = value;
+            }
+        }
+
+        public string JobName
+        {
+            get { return this.flowName; }
+        }
     }
 
 }
