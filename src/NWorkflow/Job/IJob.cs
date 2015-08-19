@@ -25,6 +25,11 @@ namespace NWorkflow
         {
             get;
         }
+
+        IMonitor Monitor
+        {
+            get;
+        }
         void Init();
         JobResult Execute();
         void DoRecover();

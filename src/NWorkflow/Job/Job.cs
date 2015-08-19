@@ -52,5 +52,11 @@ namespace NWorkflow
 
 
         abstract public void DoRecover();
+
+
+        public Monitoring.IMonitor Monitor
+        {
+            get { return this.flow.Monitor; }
+        }
     }
 }
