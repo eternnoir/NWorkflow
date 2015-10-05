@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLogging">
-      <HintPath>..\packages\NLogging.0.1.1\lib\net40\NLogging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -74,6 +71,12 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\NLogging\src\NLogging\NLogging.csproj">
+      <Project>{65cd65b5-def7-43d8-b6f8-9a1af91f6b15}</Project>
+      <Name>NLogging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
