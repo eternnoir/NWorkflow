@@ -35,26 +35,31 @@ namespace NWorkflow
 
         public override JobResult RunAllJob()
         {
+            Logger.DebugFormat("Flow {0}. Start.", JobName);
             JobResult resutlt = JobResult.NOTRUN;
             foreach (var job in jobList)
             {
                 try
                 {
+                    Logger.DebugFormat("Flow {0}. Start Job {1}", JobName, job.JobName);
                     ProcessJob(job);
                 }
                 catch (ResumeJobException rje)
                 {
                     resutlt = JobResult.FAIL;
+                    Logger.DebugFormat("Flow {0}. Job {1} Fail. [Message] {2}",JobName,job.JobName,rje.Message);
                     continue;
                 }
                 catch (InterruptJobException ije)
                 {
+                    Logger.DebugFormat("Flow {0}. Job {1} Fail. [Message] {2}", JobName, job.JobName, ije.Message);
                     this.DoRecover();
                     resutlt = JobResult.FAIL;
                     break;
                 }
                 catch (Exception ex)
                 {
+                    Logger.DebugFormat("Flow {0}. Job {1} Fail. [Message] {2}", JobName, job.JobName, ex.Message);
                     this.DoRecover();
                     resutlt = JobResult.FAIL;
                     break;
