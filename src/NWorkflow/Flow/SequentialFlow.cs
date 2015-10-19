@@ -36,7 +36,7 @@ namespace NWorkflow
         public override JobResult RunAllJob()
         {
             Logger.DebugFormat("Flow {0}. Start.", JobName);
-            JobResult resutlt = JobResult.NOTRUN;
+            JobResult resutlt = JobResult.SUCCESS;
             foreach (var job in jobList)
             {
                 try
