@@ -27,7 +27,7 @@ namespace NWorkflow
             flowName = FlowName;
             workingMemory = new Dictionary<string, object>();
             monitor = Monitoring.Monitoring.GetMonitor(this.Name);
-            logger = LogManager.GetLogger(this.Name, this.GetType());
+            logger = LogManager.GetLogger(this.GetType());
             this.recoveryMode = recoveryMode;
             recover = RecoverFactory.GetRecovery(this.RecoveryMode, this);
         }
