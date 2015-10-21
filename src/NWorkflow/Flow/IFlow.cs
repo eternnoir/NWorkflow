@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NLogging;
+using log4net.Core;
 using NWorkflow.Monitoring;
 using NWorkflow.Recovery;
+using log4net;
 
 
 namespace NWorkflow
@@ -17,7 +18,7 @@ namespace NWorkflow
             get;
         }
 
-        ILogger Logger
+        ILog Logger
         {
             set;
             get;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net.Core;
+using log4net;
 
 namespace NWorkflow
 {
@@ -45,7 +47,7 @@ namespace NWorkflow
             set { this.jobName = value; }
         }
 
-        public NLogging.ILogger Logger
+        public ILog Logger
         {
             get { return this.flow.Logger; }
         }

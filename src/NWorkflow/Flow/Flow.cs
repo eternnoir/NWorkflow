@@ -1,18 +1,19 @@
-﻿using NLogging;
-using NWorkflow.Monitoring;
+﻿using NWorkflow.Monitoring;
 using NWorkflow.Recovery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
+
 
 namespace NWorkflow
 {
     public abstract class Flow : IFlow, IJob
     {
         private string flowName;
-        private ILogger logger;
+        private ILog logger;
         private IMonitor monitor;
         private Dictionary<string, object> workingMemory;
         protected IRecover recover;
@@ -26,7 +27,7 @@ namespace NWorkflow
             flowName = FlowName;
             workingMemory = new Dictionary<string, object>();
             monitor = Monitoring.Monitoring.GetMonitor(this.Name);
-            logger = Logging.GetLogger(this.Name);
+            logger = LogManager.GetLogger(this.Name, this.GetType());
             this.recoveryMode = recoveryMode;
             recover = RecoverFactory.GetRecovery(this.RecoveryMode, this);
         }
@@ -46,7 +47,7 @@ namespace NWorkflow
             }
         }
 
-        public ILogger Logger
+        public ILog Logger
         {
             get
             {
