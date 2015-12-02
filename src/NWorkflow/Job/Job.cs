@@ -1,64 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net.Core;
-using log4net;
-
-namespace NWorkflow
+﻿namespace NWorkflow
 {
-    abstract public class Job :IJob
-    {
-        private IFlow flow;
-        private string jobName;
+    #region
 
+    using System.Collections.Generic;
+
+    using log4net;
+
+    using NWorkflow.Monitoring;
+
+    #endregion
+
+    public abstract class Job : IJob
+    {
         public Job(string JobName)
         {
-            jobName = JobName;
+            this.JobName = JobName;
         }
-        public IFlow Flow
-        {
-            get
-            {
-                return flow;
-            }
-            set
-            {
-                flow = value;
-            }
-        }
-
-        abstract public void Init();
-
-        abstract public JobResult Execute();
 
         protected Dictionary<string, object> WorkingMemeory
         {
             get
             {
-                return flow.WorkingMemory;
+                return this.Flow.WorkingMemory;
             }
         }
 
-        public string JobName
-        {
-            get { return jobName; }
-            set { this.jobName = value; }
-        }
+        public IFlow Flow { get; set; }
+
+        public abstract void Init();
+
+        public abstract JobResult Execute();
+
+        public string JobName { get; set; }
 
         public ILog Logger
         {
-            get { return this.flow.Logger; }
+            get
+            {
+                return this.Flow.Logger;
+            }
         }
 
+        public abstract void DoRecover();
 
-        abstract public void DoRecover();
-
-
-        public Monitoring.IMonitor Monitor
+        public IMonitor Monitor
         {
-            get { return this.flow.Monitor; }
+            get
+            {
+                return this.Flow.Monitor;
+            }
         }
     }
 }

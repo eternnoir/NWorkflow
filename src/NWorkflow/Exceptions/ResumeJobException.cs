@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NWorkflow.Exceptions
+﻿namespace NWorkflow.Exceptions
 {
     public class ResumeJobException : JobException
     {

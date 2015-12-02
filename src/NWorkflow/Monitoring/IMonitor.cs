@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NWorkflow.Monitoring
+﻿namespace NWorkflow.Monitoring
 {
     public interface IMonitor
     {
         /// <summary>
-        /// Name getter.
+        ///     Name getter.
         /// </summary>
-        string Name
-        {
-            get;
-        }
+        string Name { get; }
 
         void SetLevel(MonitorLevel level);
+
         void AddHandler(IHandler handler);
+
         void Critical(string message);
+
         void Error(string message);
+
         void Warning(string message);
+
         void Info(string message);
+
         void PushMessage(MonitorLevel level, string message);
     }
 }

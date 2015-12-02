@@ -1,35 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NWorkflow.Monitoring
+﻿namespace NWorkflow.Monitoring
 {
     public class Infomation
     {
-        private MonitorLevel level;
-        private string message;
-
         public Infomation(MonitorLevel level, string message)
         {
-            this.level = level;
-            this.message = message;
+            this.Level = level;
+            this.Message = message;
         }
 
-        public MonitorLevel Level
-        {
-            get
-            {
-                return this.level;
-            }
-        }
+        public MonitorLevel Level { get; private set; }
 
-        public string Message
-        {
-            get
-            {
-                return this.message;
-            }
-        }
+        public string Message { get; private set; }
     }
 }

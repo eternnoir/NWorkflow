@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NWorkflow.Exceptions
+﻿namespace NWorkflow.Exceptions
 {
     public class JobNotFoundException : NWorkflowException
     {
-        private IFlow flow;
-
         public JobNotFoundException(IFlow flow, string message)
             : base(message)
         {
-            flow = Flow;
+            this.Flow = flow;
         }
 
-        public IFlow Flow
-        {
-            get
-            {
-                return flow;
-            }
-        }
+        public IFlow Flow { get; private set; }
     }
 }

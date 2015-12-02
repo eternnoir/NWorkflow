@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NWorkflow.Monitoring
+﻿namespace NWorkflow.Monitoring
 {
+    #region
+
+    using System.Collections.Generic;
+
+    #endregion
+
     public class Monitor : IMonitor
     {
-        private string name;
-        private MonitorLevel level;
         private List<IHandler> handlerList;
-        private object syncObj = new object();
+
+        private MonitorLevel level;
+
+        private readonly object syncObj = new object();
 
         public Monitor(string MonitorName, MonitorLevel Level = MonitorLevel.INFO)
         {
-            this.name = MonitorName;
+            this.Name = MonitorName;
             this.level = Level;
         }
-        public string Name
-        {
-            get { return this.name; }
-        }
+
+        public string Name { get; private set; }
 
         public void SetLevel(MonitorLevel Level)
         {
@@ -77,6 +76,7 @@ namespace NWorkflow.Monitoring
             {
                 return false;
             }
+
             return true;
         }
     }

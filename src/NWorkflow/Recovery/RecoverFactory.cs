@@ -1,12 +1,14 @@
-﻿using NWorkflow.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-
-namespace NWorkflow.Recovery
+﻿namespace NWorkflow.Recovery
 {
+    #region
+
+    using System;
+    using System.Diagnostics;
+
+    using NWorkflow.Exceptions;
+
+    #endregion
+
     public static class RecoverFactory
     {
         public static IRecover GetRecovery(RecoveryMode mode, IFlow flow)
@@ -24,11 +26,10 @@ namespace NWorkflow.Recovery
 
                 default:
                     throw new RecoverModeException("Not support recovery mode.");
-                    
             }
+
             Debug.Assert(ret != null);
             return ret;
         }
     }
-
 }

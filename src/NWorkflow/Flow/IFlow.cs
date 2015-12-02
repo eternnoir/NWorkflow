@@ -1,49 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net.Core;
-using NWorkflow.Monitoring;
-using NWorkflow.Recovery;
-using log4net;
-
-
-namespace NWorkflow
+﻿namespace NWorkflow
 {
+    #region
+
+    using System.Collections.Generic;
+
+    using log4net;
+
+    using NWorkflow.Monitoring;
+    using NWorkflow.Recovery;
+
+    #endregion
+
+    /// <summary>
+    /// Flow's Interface.
+    /// </summary>
     public interface IFlow
     {
-        RecoveryMode RecoveryMode
-        {
-            get;
-        }
+        /// <summary>
+        /// Get Recovery Mode
+        /// </summary>
+        RecoveryMode RecoveryMode { get; }
 
-        ILog Logger
-        {
-            set;
-            get;
-        }
+        /// <summary>
+        /// Logger use by flow's job.
+        /// </summary>
+        ILog Logger { get; set; }
 
-        IMonitor Monitor
-        {
-            set;
-            get;
-        }
+        /// <summary>
+        /// Monitor use by flow's job. 
+        /// </summary>
+        IMonitor Monitor { get; set; }
 
-        string Name
-        {
-            get;
-        }
+        string Name { get; }
 
-        Dictionary<string,object> WorkingMemory
-        {
-            get;
-        }
+        Dictionary<string, object> WorkingMemory { get; }
 
+        /// <summary>
+        /// Get Execution result by Job Name.
+        /// </summary>
+        /// <param name="JobName"> Job's name which you want to get execution result. </param>
+        /// <returns> Execution Result </returns>
         JobResult GetJobResult(string JobName);
+
+        /// <summary>
+        /// Get Execution result by Job.
+        /// </summary>
+        /// <param name="JobObj"> Job which you want to get execution result. </param>
+        /// <returns> Execution Result. </returns>
         JobResult GetJobResult(IJob JobObj);
 
+        /// <summary>
+        /// Execut all job.
+        /// </summary>
+        /// <returns></returns>
         JobResult RunAllJob();
+
         JobResult RunJob(string JobName);
     }
 }
