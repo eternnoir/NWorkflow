@@ -28,7 +28,7 @@
                     throw new RecoverModeException("Not support recovery mode.");
             }
 
-            Debug.Assert(ret != null);
+            Debug.Assert(ret != null, "Return IRecover must have value");  // ret must have value.
             return ret;
         }
     }
