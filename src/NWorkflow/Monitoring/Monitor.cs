@@ -18,6 +18,7 @@
         {
             this.Name = MonitorName;
             this.level = Level;
+            this.handlerList = new List<IHandler>();
         }
 
         public string Name { get; private set; }

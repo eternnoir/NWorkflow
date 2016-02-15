@@ -13,31 +13,60 @@
     public class SequentialFlow : Flow
     {
         private readonly List<IJob> jobList;
+        private readonly List<IJob> finalizeJobList;
 
         public SequentialFlow(string FlowName, RecoveryMode recoveryMode = RecoveryMode.STACK)
             : base(FlowName, recoveryMode)
         {
             this.jobList = new List<IJob>();
+            this.finalizeJobList = new List<IJob>();
             this.jobResultDic = new Dictionary<IJob, JobResult>();
             this.jobNameDic = new Dictionary<string, IJob>();
         }
 
-        public void AddJob(IJob Job)
+        public void AddJob(IJob job)
         {
-            if (this.jobNameDic.ContainsKey(Job.JobName))
+            if (this.jobNameDic.ContainsKey(job.JobName))
             {
-                throw new JobNameExistException(this, Job, "Job " + Job.JobName + " Exist.");
+                throw new JobNameExistException(this, job, "Job " + job.JobName + " Exist.");
             }
 
-            this.jobList.Add(Job);
-            Job.Flow = this;
-            this.jobResultDic.Add(Job, JobResult.NOTRUN);
-            this.jobNameDic.Add(Job.JobName, Job);
+            this.jobList.Add(job);
+            job.Flow = this;
+            this.jobResultDic.Add(job, JobResult.NOTRUN);
+            this.jobNameDic.Add(job.JobName, job);
+        }
+
+
+        public void AddFinalizeJob(IJob job)
+        {
+            if (this.jobNameDic.ContainsKey(job.JobName))
+            {
+                throw new JobNameExistException(this, job, "Job " + job.JobName + " Exist.");
+            }
+
+            this.finalizeJobList.Add(job);
+            job.Flow = this;
+            this.jobResultDic.Add(job, JobResult.NOTRUN);
+            this.jobNameDic.Add(job.JobName, job);
         }
 
         public override JobResult RunAllJob()
         {
             this.Logger.DebugFormat("Flow {0}. Start.", this.JobName);
+            var result = this.RunJobList(this.jobList);
+            this.RunFinalizeJob();
+            return result;
+        }
+
+        public override JobResult RunFinalizeJob()
+        {
+            this.Logger.DebugFormat("Flow {0}. FinalizeJob Start.", this.Name);
+            return this.RunJobList(this.finalizeJobList);
+        }
+
+        private JobResult RunJobList(List<IJob> jobList)
+        {
             var resutlt = JobResult.SUCCESS;
             foreach (var job in this.jobList)
             {
@@ -50,17 +79,17 @@
                 {
                     resutlt = JobResult.FAIL;
                     this.Logger.DebugFormat(
-                        "Flow {0}. Job {1} Fail. [Message] {2}", 
-                        this.JobName, 
-                        job.JobName, 
+                        "Flow {0}. Job {1} Fail. [Message] {2}",
+                        this.JobName,
+                        job.JobName,
                         rje.Message);
                 }
                 catch (InterruptJobException ije)
                 {
                     this.Logger.DebugFormat(
-                        "Flow {0}. Job {1} Fail. [Message] {2}", 
-                        this.JobName, 
-                        job.JobName, 
+                        "Flow {0}. Job {1} Fail. [Message] {2}",
+                        this.JobName,
+                        job.JobName,
                         ije.Message);
                     this.DoRecover();
                     resutlt = JobResult.FAIL;
@@ -69,9 +98,9 @@
                 catch (Exception ex)
                 {
                     this.Logger.DebugFormat(
-                        "Flow {0}. Job {1} Fail. [Message] {2}", 
-                        this.JobName, 
-                        job.JobName, 
+                        "Flow {0}. Job {1} Fail. [Message] {2}",
+                        this.JobName,
+                        job.JobName,
                         ex.Message);
                     this.DoRecover();
                     resutlt = JobResult.FAIL;

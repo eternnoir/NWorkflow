@@ -55,6 +55,8 @@
         /// <returns></returns>
         JobResult RunAllJob();
 
+        JobResult RunFinalizeJob();
+
         JobResult RunJob(string JobName);
     }
 }

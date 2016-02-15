@@ -18,7 +18,6 @@
             {
                 case RecoveryMode.ONCE:
                     throw new NotImplementedException();
-                    break;
 
                 case RecoveryMode.STACK:
                     ret = new StackRecover(flow);

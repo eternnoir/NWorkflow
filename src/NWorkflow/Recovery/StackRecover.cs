@@ -4,7 +4,6 @@
 
     using System;
     using System.Collections.Generic;
-
     using NWorkflow.Exceptions;
 
     #endregion
@@ -33,18 +32,30 @@
                 }
                 catch (ResumeJobException rje)
                 {
-                    // TODO Write some log, monitor
+                    flow.Logger.DebugFormat(
+                        "Flow {0}. Job {1} Recover Fail. [Message] {2}",
+                        job.JobName,
+                        job.JobName,
+                        rje.Message);
                     result = false;
                 }
                 catch (InterruptJobException ije)
                 {
-                    // TODO Write some log, monitor
+                    flow.Logger.DebugFormat(
+                        "Flow {0}. Job {1} Recover Fail. [Message] {2}",
+                        job.JobName,
+                        job.JobName,
+                        ije.Message);
                     result = false;
                     break;
                 }
                 catch (Exception ex)
                 {
-                    // TODO Write some log, monitor
+                    flow.Logger.DebugFormat(
+                        "Flow {0}. Job {1} Recover Fail. [Message] {2}",
+                        job.JobName,
+                        job.JobName,
+                        ex.Message);
                     result = false;
                     break;
                 }

@@ -65,6 +65,8 @@
 
         public abstract JobResult RunJob(string JobName);
 
+        public abstract JobResult RunFinalizeJob();
+
         public string Name { get; private set; }
 
         public abstract JobResult GetJobResult(string JobName);

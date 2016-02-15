@@ -23,7 +23,7 @@ namespace NWorkflow.Test
                 flow.AddJob(job11);
                 Assert.True(false);
             }
-            catch (JobNameExistException jnee)
+            catch (JobNameExistException )
             {
                 Assert.True(true);
             }
@@ -42,7 +42,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 Assert.True(false);
             }
@@ -61,7 +61,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 Assert.True(false);
             }
@@ -83,7 +83,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 Assert.True(false);
             }
@@ -114,7 +114,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 Assert.True(false);
             }
@@ -148,7 +148,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 Assert.True(false);
             }
