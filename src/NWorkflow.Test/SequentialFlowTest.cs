@@ -9,13 +9,13 @@ using NWorkflow.Exceptions;
 namespace NWorkflow.Test
 {
     [TestFixture]
-    public  class SequentialFlowTest
+    public class SequentialFlowTest
     {
         [Test]
         public void TestJobNameExist()
         {
             var flow = new SequentialFlow("flow1");
-            var job1 = new FakeJob("Job1"); 
+            var job1 = new FakeJob("Job1");
             var job11 = new FakeJob("Job1");
             try
             {
@@ -23,7 +23,7 @@ namespace NWorkflow.Test
                 flow.AddJob(job11);
                 Assert.True(false);
             }
-            catch (JobNameExistException )
+            catch (JobNameExistException)
             {
                 Assert.True(true);
             }
@@ -42,7 +42,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Assert.True(false);
             }
@@ -53,7 +53,7 @@ namespace NWorkflow.Test
         {
             var flow = new SequentialFlow("flow1");
             var job1 = new FakeJob("Job1");
-            var job2 = new FakeJob("Job2",JobResult.FAIL);
+            var job2 = new FakeJob("Job2", JobResult.FAIL);
             try
             {
                 flow.AddJob(job1);
@@ -61,7 +61,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Assert.True(false);
             }
@@ -75,7 +75,7 @@ namespace NWorkflow.Test
         {
             var flow = new SequentialFlow("flow1");
             var job1 = new FakeJob("Job1");
-            var job2 = new FakeJob("Job2",JobResult.FAIL);
+            var job2 = new FakeJob("Job2", JobResult.FAIL);
             try
             {
                 flow.AddJob(job1);
@@ -83,7 +83,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Assert.True(false);
             }
@@ -114,7 +114,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Assert.True(false);
             }
@@ -148,7 +148,7 @@ namespace NWorkflow.Test
                 flow.RunAllJob();
                 Assert.True(true);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Assert.True(false);
             }
