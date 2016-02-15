@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using NWorkflow;
 using NWorkflow.Exceptions;
 
@@ -11,13 +12,15 @@ namespace NWorkflow.Test
     {
         private JobResult result;
         private JobException je;
+        private int sleepTime;
 
-        public FakeJob(string jobName, JobResult fakeResult = JobResult.SUCCESS, JobException je = JobException.NONE)
+        public FakeJob(string jobName, JobResult fakeResult = JobResult.SUCCESS, JobException je = JobException.NONE, int sleepTime = 0)
             : base(jobName)
         {
             result = fakeResult;
             this.Message = "NotRun.";
             this.je = je;
+            this.sleepTime = sleepTime;
         }
 
         public override void Init()
@@ -26,7 +29,12 @@ namespace NWorkflow.Test
 
         public override JobResult Execute()
         {
+            this.Logger.InfoFormat("Job {0} Start.", this.JobName);
             this.Message = "Run.";
+            this.Logger.InfoFormat("Job {0} Sleep {1}.", this.JobName, this.sleepTime);
+            Thread.Sleep(sleepTime);
+            this.Logger.InfoFormat("Job {0} awake.", this.JobName);
+
             switch (this.je)
             {
                 case JobException.NONE:

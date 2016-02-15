@@ -6,7 +6,7 @@
 
     #endregion
 
-    internal static class Monitoring
+    public static class Monitoring
     {
         /// <summary>
         ///     For thread safe.

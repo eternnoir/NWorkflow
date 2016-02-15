@@ -5,12 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NWorkflow.Exceptions;
+using NWorkflow.Flows;
 
 namespace NWorkflow.Test
 {
     [TestFixture]
     public class SequentialFlowTest
     {
+        public SequentialFlowTest()
+        {
+            log4net.Config.BasicConfigurator.Configure(
+                new log4net.Appender.ConsoleAppender
+                {
+                    Layout = new log4net.Layout.SimpleLayout()
+                });
+        }
+
         [Test]
         public void TestJobNameExist()
         {

@@ -55,8 +55,9 @@
     <Compile Include="Exceptions\JobNotFoundException.cs" />
     <Compile Include="Exceptions\RecoverModeException.cs" />
     <Compile Include="Exceptions\ResumeJobException.cs" />
-    <Compile Include="Flow\Flow.cs" />
-    <Compile Include="Flow\IFlow.cs" />
+    <Compile Include="Flows\AsyncFlow.cs" />
+    <Compile Include="Flows\Flow.cs" />
+    <Compile Include="IFlow.cs" />
     <Compile Include="Recovery\IRecover.cs" />
     <Compile Include="Job\IJob.cs" />
     <Compile Include="Job\Job.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recovery\RecoverFactory.cs" />
     <Compile Include="Recovery\RecoveryMode.cs" />
-    <Compile Include="Flow\SequentialFlow.cs" />
+    <Compile Include="Flows\SequentialFlow.cs" />
     <Compile Include="Recovery\StackRecover.cs" />
   </ItemGroup>
   <ItemGroup>

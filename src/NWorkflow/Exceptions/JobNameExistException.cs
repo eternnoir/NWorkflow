@@ -1,4 +1,6 @@
-﻿namespace NWorkflow.Exceptions
+﻿using NWorkflow.Flows;
+
+namespace NWorkflow.Exceptions
 {
     public class JobNameExistException : NWorkflowException
     {
