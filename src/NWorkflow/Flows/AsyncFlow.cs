@@ -10,7 +10,8 @@ namespace NWorkflow.Flows
 {
     public enum AsyncType
     {
-        ASYNC, AWAIT
+        ASYNC,
+        AWAIT
     }
 
     public class AsyncFlow : Flow
@@ -18,7 +19,7 @@ namespace NWorkflow.Flows
         private readonly List<IJob> jobList;
         private readonly List<IJob> finalizeJobList;
         private List<Task<JobResult>> awaitTaskList;
-        private Dictionary<IJob, AsyncType> jobTypeDic; 
+        private Dictionary<IJob, AsyncType> jobTypeDic;
 
         public AsyncFlow(string FlowName, RecoveryMode recoveryMode = RecoveryMode.STACK) : base(FlowName, recoveryMode)
         {
@@ -127,9 +128,7 @@ namespace NWorkflow.Flows
             switch (this.jobTypeDic[job])
             {
                 case AsyncType.ASYNC:
-            this.Logger.DebugFormat("A.");
-                    this.awaitTaskList.Add(Task.Run(()=>this.ProcessAsyncJob(job)));
-            this.Logger.DebugFormat("B.");
+                    this.awaitTaskList.Add(Task.Run(() => this.ProcessAsyncJob(job)));
                     break;
                 case AsyncType.AWAIT:
                     this.ProcessAwaitJob(job);

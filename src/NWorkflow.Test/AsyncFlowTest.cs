@@ -55,5 +55,29 @@ namespace NWorkflow.Test
                 Assert.Fail(ex.Message);
             }
         }
+
+        [Test]
+        public void TestExecJobsWithAwait()
+        {
+            var flow = new AsyncFlow("Asyncflow1");
+            var job1 = new FakeJob("AsyncJob1", sleepTime: 5 * 1000);
+            var job2 = new FakeJob("AsyncJob2", sleepTime: 5 * 1000);
+            var ajob1 = new FakeJob("AwaitJob1", sleepTime: 5 * 1000);
+            var job3 = new FakeJob("AsyncJob3", sleepTime: 5 * 1000);
+            var job4 = new FakeJob("AsyncJob4", sleepTime: 5 * 1000);
+            try
+            {
+                flow.AddJob(job1, AsyncType.ASYNC);
+                flow.AddJob(job2, AsyncType.ASYNC);
+                flow.AddJob(ajob1, AsyncType.AWAIT);
+                flow.AddJob(job3, AsyncType.ASYNC);
+                flow.AddJob(job4, AsyncType.ASYNC);
+                flow.RunAllJob();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
     }
 }
