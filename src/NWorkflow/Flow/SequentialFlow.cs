@@ -68,7 +68,7 @@
         private JobResult RunJobList(List<IJob> jobList)
         {
             var resutlt = JobResult.SUCCESS;
-            foreach (var job in this.jobList)
+            foreach (var job in jobList)
             {
                 try
                 {
@@ -78,6 +78,7 @@
                 catch (ResumeJobException rje)
                 {
                     resutlt = JobResult.FAIL;
+                    this.jobResultDic[job] = JobResult.FAIL;
                     this.Logger.DebugFormat(
                         "Flow {0}. Job {1} Fail. [Message] {2}",
                         this.JobName,
@@ -86,6 +87,7 @@
                 }
                 catch (InterruptJobException ije)
                 {
+                    this.jobResultDic[job] = JobResult.FAIL;
                     this.Logger.DebugFormat(
                         "Flow {0}. Job {1} Fail. [Message] {2}",
                         this.JobName,
@@ -97,6 +99,7 @@
                 }
                 catch (Exception ex)
                 {
+                    this.jobResultDic[job] = JobResult.FAIL;
                     this.Logger.DebugFormat(
                         "Flow {0}. Job {1} Fail. [Message] {2}",
                         this.JobName,
@@ -107,7 +110,6 @@
                     break;
                 }
             }
-
             return resutlt;
         }
 

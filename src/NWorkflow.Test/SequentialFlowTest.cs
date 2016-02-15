@@ -21,11 +21,10 @@ namespace NWorkflow.Test
             {
                 flow.AddJob(job1);
                 flow.AddJob(job11);
-                Assert.True(false);
+                Assert.Fail("FAIL");
             }
             catch (JobNameExistException)
             {
-                Assert.True(true);
             }
         }
 
@@ -40,11 +39,10 @@ namespace NWorkflow.Test
                 flow.AddJob(job1);
                 flow.AddJob(job2);
                 flow.RunAllJob();
-                Assert.True(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Assert.True(false);
+                Assert.Fail(ex.Message);
             }
         }
 
@@ -59,11 +57,10 @@ namespace NWorkflow.Test
                 flow.AddJob(job1);
                 flow.AddJob(job2);
                 flow.RunAllJob();
-                Assert.True(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Assert.True(false);
+                Assert.Fail(ex.Message);
             }
 
             Assert.AreEqual(flow.GetJobResult(job2), JobResult.FAIL);
@@ -81,11 +78,10 @@ namespace NWorkflow.Test
                 flow.AddJob(job1);
                 flow.AddJob(job2);
                 flow.RunAllJob();
-                Assert.True(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Assert.True(false);
+                Assert.Fail(ex.Message);
             }
 
             Assert.AreEqual(flow.GetJobResult("Job2"), JobResult.FAIL);
@@ -112,14 +108,15 @@ namespace NWorkflow.Test
                 flow.AddJob(job5);
                 flow.AddJob(job6);
                 flow.RunAllJob();
-                Assert.True(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Assert.True(false);
+                Assert.Fail(ex.Message);
             }
 
+
             Assert.AreEqual(flow.GetJobResult("Job1"), JobResult.SUCCESS);
+            Assert.AreEqual(flow.GetJobResult("Job5"), JobResult.NOTRUN);
             Assert.AreEqual(job3.Message, "Recovery.");
             Assert.AreEqual(job2.Message, "Recovery.");
             Assert.AreEqual(job1.Message, "Recovery.");
@@ -146,20 +143,70 @@ namespace NWorkflow.Test
                 flow.AddJob(job5);
                 flow.AddJob(job6);
                 flow.RunAllJob();
-                Assert.True(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Assert.True(false);
+                Assert.Fail(ex.Message);
             }
 
             Assert.AreEqual(flow.GetJobResult("Job1"), JobResult.SUCCESS);
-            Assert.AreEqual(flow.GetJobResult("Job3"), JobResult.NOTRUN);
+            Assert.AreEqual(flow.GetJobResult("Job3"), JobResult.FAIL);
+            Assert.AreEqual(flow.GetJobResult("Job5"), JobResult.SUCCESS);
             Assert.AreEqual(job3.Message, "Run.");
             Assert.AreEqual(job2.Message, "Run.");
             Assert.AreEqual(job1.Message, "Run.");
             Assert.AreEqual(job4.Message, "Run.");
             Assert.AreEqual(job5.Message, "Run.");
+        }
+
+        [Test]
+        public void TestFinalizeJob()
+        {
+            var flow = new SequentialFlow("flow1");
+            var job2 = new FakeJob("Job2", JobResult.SUCCESS);
+            var job3 = new FakeJob("Job3", JobResult.SUCCESS);
+            var job4 = new FakeJob("Job4", JobResult.SUCCESS);
+            try
+            {
+                flow.AddJob(job2);
+                flow.AddJob(job3);
+                flow.AddFinalizeJob(job4);
+                flow.RunAllJob();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+            Assert.AreEqual(job3.Message, "Run.");
+            Assert.AreEqual(job2.Message, "Run.");
+            Assert.AreEqual(job4.Message, "Run.");
+        }
+
+        [Test]
+        public void TestFinalizeWithFailJob()
+        {
+            var flow = new SequentialFlow("flow1");
+            var job2 = new FakeJob("Job2", JobResult.SUCCESS);
+            var job3 = new FakeJob("Job3", JobResult.SUCCESS, JobException.INTERRUPT);
+            var job4 = new FakeJob("Job4", JobResult.SUCCESS);
+            try
+            {
+                flow.AddJob(job2);
+                flow.AddJob(job3);
+                flow.AddFinalizeJob(job4);
+                flow.RunAllJob();
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+
+            Assert.AreEqual(flow.GetJobResult("Job2"), JobResult.SUCCESS);
+            Assert.AreEqual(flow.GetJobResult("Job3"), JobResult.FAIL);
+            Assert.AreEqual(flow.GetJobResult("Job4"), JobResult.SUCCESS);
+            Assert.AreEqual(job3.Message, "Recovery.");
+            Assert.AreEqual(job2.Message, "Recovery.");
+            Assert.AreEqual(job4.Message, "Run.");
         }
     }
 }
